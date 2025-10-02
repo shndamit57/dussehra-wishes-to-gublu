@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>दसऱ्याच्या हार्दिक शुभेच्छा</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Noto Sans Devanagari", sans-serif;
+            background: #4a1c1c;
+            /* Deep maroon */
+            color: #fff3e0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #b71c1c;
+            /* Maroon */
+            color: #ffcc80;
+            /* Soft orange */
+            padding: 1rem;
+            font-size: 1.6rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .facts {
+            padding: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .facts h2 {
+            color: #ff9800;
+            margin-bottom: 0.5rem;
+        }
+
+        .facts ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .facts li {
+            background: rgba(255, 152, 0, 0.1);
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            border: 1px solid #ff9800;
+        }
+
+        #surpriseBtn {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        #surpriseBtn:hover {
+            background: #e64a19;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff8e1;
+            color: #4a1c1c;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 90%;
+            text-align: center;
+            animation: pop 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.5);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #b71c1c;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        footer {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #b71c1c;
+            color: #ffcc80;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fireworks background */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (min-width: 600px) {
+            .facts ul {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="fireworks"></canvas>
+
+    <header>
+        ✨ दसऱ्याच्या हार्दिक शुभेच्छा ✨
+    </header>
+
+    <section class="hero">
+        <img src="./images/dussehra-wishes-quotes-and-messages.webp"
+            alt="Dussehra Image">
+    </section>
+
+    <section class="facts">
+        <h2>दसऱ्याविषयी काही मनोरंजक गोष्टी 🌼</h2>
+        <ul>
+            <li>दसरा हा विजयाचा उत्सव आहे, रावणावर भगवान श्रीरामांच्या विजयाची आठवण करून देतो.</li>
+            <li>या दिवशी शमीच्या झाडाची पाने 'सोनं' म्हणून वाटली जातात.</li>
+            <li>शस्त्रपूजा आणि वाहनपूजा करण्याची प्रथा या दिवशी आहे.</li>
+            <li>दुर्गा मातेनं महिषासुराचा पराभव करून विजय मिळवला याचीही आठवण ठेवली जाते.</li>
+        </ul>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="surpriseModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🙏 देवी दुर्गेच्या आशीर्वादासह 🎉</h2>
+            <p>या दसऱ्याच्या पावन दिवशी, देवी दुर्गेच्या कृपेने तुमच्या जीवनात सुख, समृद्धी, आणि यश लाभो! 🌸</p>
+            <img src="./images/WhatsApp Image 2025-10-02 at 13.47.23.jpeg"
+                alt="Maa Durga">
+        </div>
+    </div>
+
+    <footer>
+        🌿 आनंद, शांती आणि समृद्धीने भरलेला दसरा आपणास लाभो 🌿
+    </footer>
+
+    <script>
+        const btn = document.getElementById("surpriseBtn");
+        const modal = document.getElementById("surpriseModal");
+        const closeBtn = document.querySelector(".close");
+
+        btn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        /* Fireworks Animation */
+        const canvas = document.getElementById("fireworks");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Firework {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.radius = Math.random() * 2 + 2;
+                this.angle = Math.random() * 2 * Math.PI;
+                this.speed = Math.random() * 3 + 2;
+                this.life = 100;
+            }
+            update() {
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                this.life--;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        let fireworks = [];
+
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height * 0.5;
+            const colors = ["#ffcc80", "#ff9800", "#ff5722", "#ffffff"];
+            for (let i = 0; i < 50; i++) {
+                fireworks.push(new Firework(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        function animate() {
+            ctx.fillStyle = "rgba(0,0,0,0.2)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((fw, i) => {
+                fw.update();
+                fw.draw();
+                if (fw.life <= 0) fireworks.splice(i, 1);
+            });
+            requestAnimationFrame(animate);
+        }
+
+        setInterval(createFirework, 1200);
+        animate();
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+
+</html>
