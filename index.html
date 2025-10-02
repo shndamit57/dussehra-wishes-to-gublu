@@ -10,7 +10,6 @@
             margin: 0;
             font-family: "Noto Sans Devanagari", sans-serif;
             background: #4a1c1c;
-            /* Deep maroon */
             color: #fff3e0;
             text-align: center;
             overflow-x: hidden;
@@ -18,9 +17,7 @@
 
         header {
             background: #b71c1c;
-            /* Maroon */
             color: #ffcc80;
-            /* Soft orange */
             padding: 1rem;
             font-size: 1.6rem;
             font-weight: bold;
@@ -83,6 +80,7 @@
         }
 
         /* Modal */
+        /* Modal overlay */
         .modal {
             display: none;
             position: fixed;
@@ -91,21 +89,27 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(255, 140, 0, 0.3);
+            /* soft transparent orange overlay */
             justify-content: center;
             align-items: center;
         }
 
+        /* Modal content */
         .modal-content {
-            background: #fff8e1;
-            color: #4a1c1c;
+            background: #7b1f1f;
+            /* lighter maroon than body */
+            color: #ffcc80;
+            /* soft orange text */
             padding: 2rem;
             border-radius: 15px;
             max-width: 90%;
             text-align: center;
             animation: pop 0.4s ease;
             position: relative;
+            overflow: hidden;
         }
+
 
         @keyframes pop {
             from {
@@ -123,13 +127,18 @@
             right: 15px;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #b71c1c;
+            color: #ffcc80;
+            z-index: 2;
         }
 
-        .modal-content img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 1rem;
+        .modal-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ffcc80;
+            /* match website theme */
+            position: relative;
+            z-index: 1;
         }
 
         footer {
@@ -142,16 +151,18 @@
             z-index: 2;
         }
 
-        /* Fireworks background */
-        canvas {
-            position: fixed;
+        /* Fireworks canvas inside modal */
+        .modal canvas {
+            position: absolute;
             top: 0;
             left: 0;
             z-index: 0;
+            /* behind the text */
+            width: 100%;
+            height: 100%;
             pointer-events: none;
         }
 
-        /* Responsive */
         @media (min-width: 600px) {
             .facts ul {
                 display: grid;
@@ -163,15 +174,12 @@
 </head>
 
 <body>
-    <canvas id="fireworks"></canvas>
-
     <header>
         ✨ दसऱ्याच्या हार्दिक शुभेच्छा ✨
     </header>
 
     <section class="hero">
-        <img src="./dussehra-wishes-quotes-and-messages.webp"
-            alt="Dussehra Image">
+        <img src="./dussehra-wishes-quotes-and-messages.webp" alt="Dussehra Image">
     </section>
 
     <section class="facts">
@@ -184,14 +192,16 @@
         </ul>
     </section>
 
+    <button id="surpriseBtn">Click for a Surprise 🎁</button>
+
     <!-- Modal -->
     <div class="modal" id="surpriseModal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>🙏 देवी दुर्गेच्या आशीर्वादासह 🎉</h2>
-            <p>या दसऱ्याच्या पावन दिवशी, देवी दुर्गेच्या कृपेने तुमच्या जीवनात सुख, समृद्धी, आणि यश लाभो! 🌸</p>
-            <img src="./images/WhatsApp Image 2025-10-02 at 13.47.23.jpeg"
-                alt="Maa Durga">
+            <div class="modal-text">
+                🙏 या दसऱ्याच्या पावन दिवशी, देवी दुर्गेच्या कृपेने तुमच्या जीवनात सुख, समृद्धी, आणि यश लाभो! 🌸
+            </div>
+            <canvas id="modalFireworks"></canvas>
         </div>
     </div>
 
@@ -206,23 +216,31 @@
 
         btn.addEventListener("click", () => {
             modal.style.display = "flex";
+            startFireworks();
         });
 
         closeBtn.addEventListener("click", () => {
             modal.style.display = "none";
+            stopFireworks();
         });
 
         window.addEventListener("click", (e) => {
             if (e.target === modal) {
                 modal.style.display = "none";
+                stopFireworks();
             }
         });
 
-        /* Fireworks Animation */
-        const canvas = document.getElementById("fireworks");
+        /* Fireworks inside modal */
+        const canvas = document.getElementById("modalFireworks");
         const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let fireworks = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
 
         class Firework {
             constructor(x, y, color) {
@@ -247,8 +265,6 @@
             }
         }
 
-        let fireworks = [];
-
         function createFirework() {
             const x = Math.random() * canvas.width;
             const y = Math.random() * canvas.height * 0.5;
@@ -266,18 +282,24 @@
                 fw.draw();
                 if (fw.life <= 0) fireworks.splice(i, 1);
             });
-            requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(animate);
         }
 
-        setInterval(createFirework, 1200);
-        animate();
+        function startFireworks() {
+            resizeCanvas();
+            fireworks = [];
+            animate();
+            window.fireworkInterval = setInterval(createFirework, 1200);
+        }
 
-        window.addEventListener("resize", () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        function stopFireworks() {
+            cancelAnimationFrame(animationId);
+            clearInterval(window.fireworkInterval);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        window.addEventListener("resize", resizeCanvas);
     </script>
 </body>
-
 
 </html>
